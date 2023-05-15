@@ -1,0 +1,35 @@
+name: 'Pull and Run ECR image on EC2'
+description: 'Using python library, run docker image.'
+branding:
+  icon: 'info'
+  color: 'green'
+inputs:
+  instance-ip:
+    required: true
+    description: "The instance ip address"
+  key-pair:
+    required: true
+    description: "The ssh key pair name"
+  ecr-registry:
+    required: true
+    description: "The ECR registry"
+  ecr-repository:
+    required: true
+    description: "The ECR repository"
+  image-tag:
+    required: true
+    description: "The image tag"
+  private-key:
+    required: true
+    description: the value of the ssh key
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - --instance-ip=${{ inputs.instance-ip }}
+    - --key-pair=${{ inputs.key-pair }}
+    - --ecr-registry=${{ inputs.ecr-registry }}
+    - --ecr-repository=${{ inputs.ecr-repository }}
+    - --image-tag=${{ inputs.image-tag }}
+    - --private-key=${{ inputs.priavte-key }}
